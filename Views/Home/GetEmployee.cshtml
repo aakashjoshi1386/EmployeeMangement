@@ -1,0 +1,51 @@
+﻿@model Employee
+@{
+    ViewData["Title"] = "GetEmployee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @Html.BeginForm("GetEmployee", "Home", FormMethod.Post){
+
+    <div class="col-md-4">
+        <label>Enter Name</label>
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-group", @id = "ddlID" })
+    </div>
+
+    <input type="submit" name="submit" value="Submit" class="btn btn-primary" />
+
+    }
+
+    @*<div class="col-md-4">
+        <label>Department Name</label>
+        @Html.DropDownList("Department", new SelectList(Enum.GetValues(typeof(Dept))),
+                "---Select Department----", new { @class = "form-group" })
+
+        <input type="hidden" name="ddlDepartment" id="ddlDept" />
+    </div>*@
+
+    <div class="col-md-4">
+        <label>Gender</label>
+        @Html.DropDownList("Gender",new List<SelectListItem> {
+                new SelectListItem{ Text ="Male",Value = "1"},
+                new SelectListItem{ Text ="Female",Value = "2"}
+                },
+                "---Select Gender----", new { @class = "form-group",@id="ddlgender" })
+
+        <input type="hidden" name="Gender" id="ddlGender" />
+    </div>
+
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#ddlID").on("change", function () {
+                $("#ddlGender").val($(this).find("option:selected").text());
+            });
+        });
+
+    </script>
+}
+
